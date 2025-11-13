@@ -2,10 +2,17 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="SpotifyBPM.Pages.MainPage">
+             x:Class="SpotifyBPM.Pages.MainPage" Title="">
 
     <ScrollView>
-        <Button Text="Authenticate spotify" Command="{Binding StartAuthCommand}"/>
+        <Grid RowDefinitions=".5*,*,*,.5*" Margin="10">
+
+            <Label Text="Welcome!" FontSize="35" VerticalOptions="Start" HorizontalOptions="Center"/>
+            <Label Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pulvinar neque diam, posuere accumsan arcu volutpat eu. Integer justo augue, porttitor sed elementum at, vehicula eget ipsum. Duis interdum interdum augue. Etiam eget sapien sed velit facilisis pretium. Aliquam erat volutpat. Suspendisse sollicitudin eu dui eu auctor. Nunc rutrum, nibh at pharetra rutrum, sapien mi sagittis odio, ut tincidunt enim lacus et mauris. Nam nec interdum urna. Aliquam erat volutpat. Donec quis tellus ligula. Nam sed faucibus felis. Etiam tincidunt mi metus, id dignissim lorem viverra et. Cras eu erat arcu. Curabitur sit amet diam ac eros cursus scelerisque nec vitae ligula. Quisque cursus orci et orci commodo elementum.!" VerticalOptions="Start" HorizontalOptions="Start" Grid.Row="1"/>
+            <Button Text="Click here to authenticate spotify" Grid.Row="2" Command="{Binding StartAuthCommand}" HorizontalOptions="Center" VerticalOptions="Center" Padding="30, 50"/>
+            <Label Text=" After you log in you'll be able to access all features!" VerticalOptions="Start" HorizontalOptions="Center" Grid.Row="3" Margin="10, 0, 0, 0"/>
+
+        </Grid>
     </ScrollView>
 
 </ContentPage>

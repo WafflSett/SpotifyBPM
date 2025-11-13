@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace SpotifyBPM.Classes
@@ -13,5 +14,7 @@ namespace SpotifyBPM.Classes
         public string scope { get; set; }
         public string refresh_token { get; set; }
         public int expires_in { get; set; }
+        [JsonIgnore]
+        public DateTime recievedAt { get; set; }
     }
 }

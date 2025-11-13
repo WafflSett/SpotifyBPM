@@ -23,12 +23,11 @@ namespace SpotifyBPM.ViewModels
         public string Verifier {  get; set; }
         private string authCode;
         private string redirectUri = "https://wafflsett.github.io/SpotifyBPM/";
-        private string clientId = "e5e2e9166e354db89146dffe249ba697";
         private string scope = "playlist-read-private user-library-read";
 
         public void StartBrowser() {
             UriBuilder authUri = new UriBuilder("https://accounts.spotify.com/authorize");
-            authUri.Query = $"response_type=code&client_id={clientId}&scope={HttpUtility.UrlEncode(scope)}&code_challenge_method=S256&code_challenge={CodeChallange}&redirect_uri={redirectUri}";
+            authUri.Query = $"response_type=code&client_id={App.ClientId}&scope={HttpUtility.UrlEncode(scope)}&code_challenge_method=S256&code_challenge={CodeChallange}&redirect_uri={redirectUri}";
             WebSource = authUri.Uri.AbsoluteUri;
         }
 
@@ -41,9 +40,14 @@ namespace SpotifyBPM.ViewModels
                 authCode = coll.Get("code");
                 if (authCode!=null)
                 {
-                    TokenResponse res = await HttpCommunication.RequestAccessToken(authCode, redirectUri, clientId, Verifier);
-                    //Shell.Current.GoToAsync("//MainPage");
+                    TokenResponse? res = await HttpCommunication.RequestAccessToken(authCode, redirectUri, Verifier);
+                    if (res!=null)
+                    {
+                        App.AccessToken = res;
+                        await Shell.Current.GoToAsync("//AppPage");
+                    }
                 }
+                await Shell.Current.GoToAsync("//MainPage?failed=true");
             }
         }
     }

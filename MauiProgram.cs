@@ -23,6 +23,8 @@ namespace SpotifyBPM
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<AuthPage>();
             builder.Services.AddSingleton<AuthViewModel>();
+            builder.Services.AddSingleton<AppPage>();
+            builder.Services.AddSingleton<AppViewModel>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
