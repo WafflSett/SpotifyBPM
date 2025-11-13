@@ -9,8 +9,6 @@ namespace SpotifyBPM.Pages
             InitializeComponent();
             this.BindingContext = mv;
         }
-
-        
     }
 
 }

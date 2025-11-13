@@ -1,0 +1,50 @@
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using FlagGame.Classes;
+using SpotifyBPM.Classes;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Reflection.Emit;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
+using static System.Net.WebRequestMethods;
+
+namespace SpotifyBPM.ViewModels
+{
+    public partial class AuthViewModel : ObservableObject
+    {
+        [ObservableProperty]
+        public string webSource;
+
+        public string CodeChallange {  get; set; }
+        public string Verifier {  get; set; }
+        private string authCode;
+        private string redirectUri = "https://wafflsett.github.io/SpotifyBPM/";
+        private string clientId = "e5e2e9166e354db89146dffe249ba697";
+        private string scope = "playlist-read-private user-library-read";
+
+        public void StartBrowser() {
+            UriBuilder authUri = new UriBuilder("https://accounts.spotify.com/authorize");
+            authUri.Query = $"response_type=code&client_id={clientId}&scope={HttpUtility.UrlEncode(scope)}&code_challenge_method=S256&code_challenge={CodeChallange}&redirect_uri={redirectUri}";
+            WebSource = authUri.Uri.AbsoluteUri;
+        }
+
+        [RelayCommand]
+        public async Task WebViewNavigated(WebNavigatedEventArgs e)
+        {
+            if (e.Url.StartsWith(redirectUri))
+            {
+                NameValueCollection coll = HttpUtility.ParseQueryString(e.Url.Split('?')[1]);
+                authCode = coll.Get("code");
+                if (authCode!=null)
+                {
+                    TokenResponse res = await HttpCommunication.RequestAccessToken(authCode, redirectUri, clientId, Verifier);
+                    //Shell.Current.GoToAsync("//MainPage");
+                }
+            }
+        }
+    }
+}

@@ -5,7 +5,7 @@
              x:Class="SpotifyBPM.Pages.MainPage">
 
     <ScrollView>
-        
+        <Button Text="Authenticate spotify" Command="{Binding StartAuthCommand}"/>
     </ScrollView>
 
 </ContentPage>
