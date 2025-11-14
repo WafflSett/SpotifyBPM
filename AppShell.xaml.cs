@@ -8,7 +8,7 @@ namespace SpotifyBPM
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(AuthPage), typeof(AuthPage));
-
+            
         }
     }
 }

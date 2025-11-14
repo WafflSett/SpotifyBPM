@@ -1,5 +1,7 @@
 ﻿using FlagGame.Classes;
+using SpotifyBPM.Classes;
 using SpotifyBPM.ViewModels;
+using System.Text.Json;
 
 namespace SpotifyBPM.Pages
 {
@@ -7,12 +9,23 @@ namespace SpotifyBPM.Pages
     {
         public MainPage(MainViewModel mv)
         {
-            InitializeComponent();
-            this.BindingContext = mv;
-            CheckToken();
+            string? storageResult = Task.Run(async () => await SecureStorage.Default.GetAsync("oauth_token")).Result;
+            if (storageResult!=null)
+            {
+                TokenResponse? oauthToken = JsonSerializer.Deserialize<TokenResponse?>(storageResult);
+                App.AccessToken = oauthToken;
+            }
+            if (!CheckToken())
+            {
+                InitializeComponent();
+                this.BindingContext = mv;
+            }
+            else {
+                Shell.Current.GoToAsync("//AppPage");
+            }
         }
 
-        private void CheckToken() {
+        private bool CheckToken() {
             if (App.AccessToken != null)
             {
                 // check if token expired yet
@@ -20,12 +33,16 @@ namespace SpotifyBPM.Pages
                 {
                     //refresh token
                     App.AccessToken = Task.Run(async () => await HttpCommunication.RefreshAccessToken(App.AccessToken.refresh_token)).Result;
-                    if (App.AccessToken!=null)
+                    if (App.AccessToken != null)
                     {
-                        Shell.Current.GoToAsync("//AppPage");
+                        return true;
                     }
                 }
+                else { 
+                    return true;
+                }
             }
+            return false;
         }
     }
 

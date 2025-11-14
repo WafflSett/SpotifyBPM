@@ -8,6 +8,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web;
 using static System.Net.WebRequestMethods;
@@ -44,7 +45,9 @@ namespace SpotifyBPM.ViewModels
                     if (res!=null)
                     {
                         App.AccessToken = res;
+                        await SecureStorage.Default.SetAsync("oauth_token", JsonSerializer.Serialize(res));
                         await Shell.Current.GoToAsync("//AppPage");
+                        return;
                     }
                 }
                 await Shell.Current.GoToAsync("//MainPage?failed=true");

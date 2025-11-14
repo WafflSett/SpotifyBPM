@@ -21,7 +21,7 @@ namespace SpotifyBPM.ViewModels
                 Shell.Current.DisplayAlert("Failed", "Authentication failed, please try again in a bit!", "Ok");
             }
         }
-
+        // toros.gergo@gmail.com
         [RelayCommand]
         public async Task StartAuth() {
             await Shell.Current.GoToAsync($"{nameof(AuthPage)}");
