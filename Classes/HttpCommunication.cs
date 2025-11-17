@@ -6,12 +6,36 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using SpotifyBPM;
 using SpotifyBPM.Classes;
+using SpotifyBPM.Managers;
 
-namespace FlagGame.Classes
+namespace SpotifyBPM.Classes
 {
+    public static class HttpCommunication<T> where T : class
+    {
+        public async static Task<T?> Get(string url)
+        {
+            using var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            request.Headers.Add("Authorization", $"Bearer {TokenManager.AccessToken.access_token}");
+            using var response = await client.SendAsync(request).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                string resultString = response.Content.ReadAsStringAsync().Result;
+                T? root = JsonSerializer.Deserialize<T>(resultString);
+                return root;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                return null;
+            }
+            else {
+                return null;
+            }
+        }
+    }
+
     public static class HttpCommunication
     {
-
         public async static Task<TokenResponse>? RequestAccessToken(string code, string redirectUri, string codeVerifier)
         {
             using var client = new HttpClient();

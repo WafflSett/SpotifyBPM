@@ -2,10 +2,25 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SpotifyBPM.Pages.AppPage"
-             Title="AppPage">
+             Title="AppPage" Shell.NavBarIsVisible="False" Shell.FlyoutBehavior="Flyout">
+    
     <ScrollView>
-        <Label Text="Logged in successfully!"/>
-        <Label Text="Your token is:"/>
-        <Label Text="{Binding MyToken.access_token}"/>
+        <Grid RowDefinitions=".5*,*" Margin="10">
+            <StackLayout Orientation="Horizontal" Grid.Row="0" HeightRequest="50" VerticalOptions="Start">
+                <Image Source="{Binding MyUser.images[0].url}" WidthRequest="50" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="10, 0, 0, 0">
+                    <Label Text="Welcome " FontSize="20">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Welcome "/>
+                                <Span Text="{Binding MyUser.display_name}"/>
+                                <Span Text="!"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <!--<Button Text="Log out" Command="{Binding LogOutClickedCommand}"/>-->
+                </StackLayout>
+            </StackLayout>
+        </Grid>
     </ScrollView>
 </ContentPage>

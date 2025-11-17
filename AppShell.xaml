@@ -5,8 +5,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:SpotifyBPM"
     xmlns:pages="clr-namespace:SpotifyBPM.Pages"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     Shell.FlyoutBehavior="Disabled"
-    Title="SpotifyBPM">
+    Title="SpotifyBPM" Shell.NavBarIsVisible="False">
+    <Shell.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource PalDarkRed}" StatusBarStyle="LightContent"/>
+    </Shell.Behaviors>
 
     <ShellContent
         Title="Home"
@@ -16,4 +20,6 @@
         Title="App"
         ContentTemplate="{DataTemplate pages:AppPage}"
         Route="AppPage" />
+
+    <MenuItem Text="MenuItem" Command="{Binding MenuClickedCommand}"/>
 </Shell>
