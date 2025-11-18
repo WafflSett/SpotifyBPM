@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SpotifyBPM.Classes;
-using SpotifyBPM.Managers;
+using SpotifyBPM.Models;
+using SpotifyBPM.Services;
 
 namespace SpotifyBPM.ViewModels
 {

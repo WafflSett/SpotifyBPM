@@ -1,5 +1,5 @@
 ﻿using SpotifyBPM.Classes;
-using SpotifyBPM.Managers;
+using SpotifyBPM.Services;
 using SpotifyBPM.ViewModels;
 using System.Text.Json;
 

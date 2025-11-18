@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace SpotifyBPM.Classes
+namespace SpotifyBPM.Models
 {
     public class TokenResponse
     {

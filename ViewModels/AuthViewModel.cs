@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SpotifyBPM.Classes;
-using SpotifyBPM.Managers;
+using SpotifyBPM.Models;
+using SpotifyBPM.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -40,14 +40,11 @@ namespace SpotifyBPM.ViewModels
                 authCode = coll.Get("code");
                 if (authCode!=null)
                 {
-                    TokenResponse? res = await HttpCommunication.RequestAccessToken(authCode, redirectUri, Verifier);
-                    if (res!=null)
-                    {
-                        TokenManager.AccessToken = res;
-                        await SecureStorage.Default.SetAsync("oauth_token", JsonSerializer.Serialize(res));
+                    if (await TokenManager.GetToken(authCode, redirectUri, Verifier)!=null)
+                    {   
+                        await Shell.Current.GoToAsync("//AppPage");
+                        return;
                     }
-                    await Shell.Current.GoToAsync("//AppPage");
-                    return;
                 }
                 await Shell.Current.GoToAsync("//MainPage?failed=true");
             }

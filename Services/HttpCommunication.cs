@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using SpotifyBPM;
-using SpotifyBPM.Classes;
-using SpotifyBPM.Managers;
+using SpotifyBPM.Models;
 
-namespace SpotifyBPM.Classes
+namespace SpotifyBPM.Services
 {
     public static class HttpCommunication<T> where T : class
     {

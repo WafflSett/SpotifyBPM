@@ -11,7 +11,7 @@
     <Shell.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="{StaticResource PalDarkRed}" StatusBarStyle="LightContent"/>
     </Shell.Behaviors>
-
+    
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate pages:MainPage}"
@@ -21,5 +21,5 @@
         ContentTemplate="{DataTemplate pages:AppPage}"
         Route="AppPage" />
 
-    <MenuItem Text="MenuItem" Command="{Binding MenuClickedCommand}"/>
+    <!--<MenuItem Text="MenuItem" Command="{Binding MenuClickedCommand}"/>-->
 </Shell>
